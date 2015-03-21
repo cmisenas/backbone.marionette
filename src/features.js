@@ -1,7 +1,18 @@
-Marionette.FEATURES = {
+
+var FEATURES = {
   'class':  false
 };
 
-Marionette.isEnabled = function(name) {
-  return !!Marionette.FEATURES[name];
+function isEnabled(name) {
+  return !!FEATURES[name];
+}
+
+function setEnabled(name, state) {
+  return FEATURES[name] = state;
+}
+
+export default {
+  FEATURES: FEATURES,
+  setEnabled: setEnabled,
+  isEnabled: isEnabled
 };

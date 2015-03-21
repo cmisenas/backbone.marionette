@@ -3,6 +3,8 @@ var sinon = require('sinon');
 var sinonChai = require('sinon-chai');
 var chaiJq = require('chai-jq');
 var requireHelper = require('./require-helper');
+import {setEnabled} from '../../../src/features';
+
 
 chai.use(sinonChai);
 chai.use(chaiJq);
@@ -14,10 +16,10 @@ if (!global.document || !global.window) {
   var jsdom = require('jsdom').jsdom;
 
   global.document = jsdom('<html><head><script></script></head><body></body></html>', null, {
-    FetchExternalResources   : ['script'],
-    ProcessExternalResources : ['script'],
-    MutationEvents           : '2.0',
-    QuerySelector            : false
+    FetchExternalResources:   ['script'],
+    ProcessExternalResources: ['script'],
+    MutationEvents:           '2.0',
+    QuerySelector:            false
   });
 
   global.window = document.parentWindow;
@@ -34,32 +36,19 @@ global.Backbone = require('backbone');
 global.Backbone.$ = global.$;
 global.Marionette = Backbone.Marionette = {};
 
-requireHelper('features');
-Marionette.FEATURES.class = true;
+var features = requireHelper('features');
+features.setEnabled('class', true);
 
 global.Metal = require('backbone-metal');
 
 require('backbone.babysitter');
 require('backbone.radio');
 global.slice = Array.prototype.slice;
-requireHelper('bind-entity-events');
+// requireHelper('bind-entity-events');
 requireHelper('radio-helpers');
-requireHelper('trigger-method');
-
-requireHelper('utils/extend');
-requireHelper('utils/isNodeAttached');
-requireHelper('utils/mergeOptions');
-requireHelper('utils/getOption');
-requireHelper('utils/proxyGetOption');
-requireHelper('utils/_getValue');
-requireHelper('utils/normalizeMethods');
-requireHelper('utils/normalizeUIString');
-requireHelper('utils/normalizeUIKeys');
-requireHelper('utils/normalizeUIValues');
-requireHelper('utils/actAsCollection');
-requireHelper('utils/deprecate');
-
-requireHelper('dom-refresh');
+// requireHelper('trigger-method');
+// require utils
+// requireHelper('dom-refresh');
 requireHelper('metal');
 requireHelper('object');
 requireHelper('app-router');
@@ -74,4 +63,4 @@ requireHelper('behavior');
 requireHelper('behaviors');
 requireHelper('region');
 requireHelper('region-manager');
-requireHelper('error');
+//requireHelper('error');

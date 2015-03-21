@@ -1,8 +1,10 @@
+import {isEnabled} from './features';
+
 // Missing Metal Items
 // 1. Marionette.Class parity
 // 2. Marionette.Deprecate
 
-if (Marionette.isEnabled('class')) {
+if (isEnabled('class')) {
   Marionette.Class = Metal.Class.extend({});
 }
 
@@ -15,7 +17,7 @@ function classify(obj) {
   );
 }
 
-if (Marionette.isEnabled('class')) {
+if (isEnabled('class')) {
   Backbone.View         = classify(Backbone.View);
   Marionette.Mixin      = Metal.Mixin;
   Marionette.Events     = Backbone.Events     = new Marionette.Mixin(Backbone.Events);

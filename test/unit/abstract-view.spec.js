@@ -3,8 +3,8 @@ describe('base view', function() {
 
   describe('when creating a view', function() {
     beforeEach(function() {
-      this.initializeStub = this.sinon.stub();
-      this.viewConstructorSpy = this.sinon.spy(Backbone, 'View');
+      this.initializeStub = sinon.stub();
+      this.viewConstructorSpy = sinon.spy(Backbone, 'View');
 
       this.View = Marionette.AbstractView.extend({
         initialize: this.initializeStub
