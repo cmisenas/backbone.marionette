@@ -1,9 +1,11 @@
 describe('collection view', function() {
   'use strict';
 
-  beforeEach(function() {
-    this.sinon.spy(Backbone, 'View');
+  before(function() {
+    sinon.spy(Backbone, 'View');
+  });
 
+  beforeEach(function() {
     // Shared View Definitions
     // -----------------------
     this.ChildView = Backbone.View.extend({

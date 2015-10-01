@@ -1,5 +1,3 @@
-import Marionette from '../../src/backbone-marionette';
-
 describe('regionManager', function() {
   'use strict';
 
@@ -184,10 +182,7 @@ describe('regionManager', function() {
       });
 
       it('throws an error', function() {
-        expect(this.addRegion).to.throw(new Marionette.MarionetteError({
-          message: 'Improper region configuration type.',
-          url: 'marionette.region.html#region-configuration-types'
-        }));
+        expect(this.addRegion).to.throw('Error: Improper region configuration type. See: http://marionettejs.com/docs/v<%= version %>/marionette.region.html#region-configuration-types');
       });
     });
 

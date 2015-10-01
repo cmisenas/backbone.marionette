@@ -1,5 +1,3 @@
-import Marionette from '../../src/backbone-marionette';
-
 describe('Marionette.Error', function() {
   it('should be subclass of native Error', function() {
     expect(new Marionette.MarionetteError()).to.be.instanceOf(Error);

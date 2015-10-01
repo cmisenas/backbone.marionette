@@ -1,5 +1,3 @@
-import Marionette from '../../src/backbone-marionette';
-
 describe('trigger event and method name', function() {
   'use strict';
 

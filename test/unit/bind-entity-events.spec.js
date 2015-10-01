@@ -1,5 +1,3 @@
-import Marionette from '../../src/backbone-marionette';
-
 describe('Marionette.bindEntityEvents', function() {
   'use strict';
 
@@ -103,7 +101,7 @@ describe('Marionette.bindEntityEvents', function() {
           var suite = this;
           expect(function() {
             Marionette.bindEntityEvents(suite.target, suite.entity, {'baz': 'doesNotExist'});
-          }).to.throw('Method "doesNotExist" was configured as an event handler, but does not exist.');
+          }).to.throw('Error: Method "doesNotExist" was configured as an event handler, but does not exist.');
         });
       });
     });
@@ -134,10 +132,7 @@ describe('Marionette.bindEntityEvents', function() {
     });
 
     it('should error', function() {
-      expect(this.run).to.throw(new Marionette.MarionetteError({
-        message: 'Bindings must be an object or function.',
-        url: 'marionette.functions.html#marionettebindentityevents'
-      }));
+      expect(this.run).to.throw('Error: Bindings must be an object or function. See: http://marionettejs.com/docs/v<%= version %>/marionette.functions.html#marionettebindentityevents');
     });
   });
 

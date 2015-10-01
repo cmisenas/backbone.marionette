@@ -1,5 +1,3 @@
-import Marionette from '../../src/backbone-marionette';
-
 describe('normalizeUI* utility functions', function() {
   'use strict';
 
