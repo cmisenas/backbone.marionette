@@ -7,11 +7,13 @@ import isNodeAttached    from './utils/isNodeAttached';
 import _getValue         from './utils/_getValue';
 import getOption         from './utils/getOption';
 import MarionetteError   from './error';
+import AbstractView      from './abstract-view';
+import MonitorDOMRefresh from './dom-refresh';
 import { triggerMethodMany, triggerMethodOn } from './trigger-method';
 
 // A view that iterates over a Backbone.Collection
 // and renders an individual child view for each model.
-Marionette.CollectionView = Marionette.AbstractView.extend({
+var CollectionView = AbstractView.extend({
 
   // used as the prefix for child view events
   // that are forwarded through the collectionview
@@ -31,7 +33,7 @@ Marionette.CollectionView = Marionette.AbstractView.extend({
     this.once('render', this._initialEvents);
     this._initChildViewStorage();
 
-    Marionette.AbstractView.prototype.constructor.apply(this, arguments);
+    AbstractView.prototype.constructor.apply(this, arguments);
 
     this.on({
       'before:show':   this._onBeforeShowCalled,
@@ -494,14 +496,14 @@ Marionette.CollectionView = Marionette.AbstractView.extend({
   // render the child view
   _renderChildView: function(view, index, triggerBeforeShow, triggerBeforeAttach) {
     if (!view.supportsRenderLifecycle) {
-      Marionette.triggerMethodOn(view, 'before:render', view);
+      triggerMethodOn(view, 'before:render', view);
     }
     view.render();
     if (!view.supportsRenderLifecycle) {
-      Marionette.triggerMethodOn(view, 'render', view);
+      triggerMethodOn(view, 'render', view);
     }
     if (triggerBeforeShow) {
-      Marionette.triggerMethodOn(view, 'before:show', view);
+      triggerMethodOn(view, 'before:show', view);
     }
     if (triggerBeforeAttach) {
       var nestedViews = this._getViewAndNested(view);
@@ -515,7 +517,7 @@ Marionette.CollectionView = Marionette.AbstractView.extend({
   buildChildView: function(child, ChildViewClass, childViewOptions) {
     var options = _.extend({model: child}, childViewOptions);
     var childView = new ChildViewClass(options);
-    Marionette.MonitorDOMRefresh(childView);
+    MonitorDOMRefresh(childView);
     return childView;
   },
 
@@ -529,7 +531,7 @@ Marionette.CollectionView = Marionette.AbstractView.extend({
     this.triggerMethod('before:remove:child', view);
 
     if (!view.supportsDestroyLifecycle) {
-      Marionette.triggerMethodOn(view, 'before:destroy', view);
+      triggerMethodOn(view, 'before:destroy', view);
     }
     // call 'destroy' or 'remove', depending on which is found
     if (view.destroy) {
@@ -538,7 +540,7 @@ Marionette.CollectionView = Marionette.AbstractView.extend({
       view.remove();
     }
     if (!view.supportsDestroyLifecycle) {
-      Marionette.triggerMethodOn(view, 'destroy', view);
+      triggerMethodOn(view, 'destroy', view);
     }
 
     delete view._parent;
@@ -642,7 +644,7 @@ Marionette.CollectionView = Marionette.AbstractView.extend({
 
     this.destroyChildren({checkEmpty: false});
 
-    return Marionette.AbstractView.prototype.destroy.apply(this, arguments);
+    return AbstractView.prototype.destroy.apply(this, arguments);
   },
 
   // Destroy the child views that this collection view
@@ -716,3 +718,5 @@ Marionette.CollectionView = Marionette.AbstractView.extend({
     return this.getOption('viewComparator');
   }
 });
+
+export default CollectionView;

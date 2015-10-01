@@ -1,13 +1,16 @@
 // View
 // ---------
-
-import _getValue from './utils/_getValue';
+import _             from 'underscore';
+import AbstractView  from './abstract-view';
+import RegionManager from './region-manager';
+import Region        from './region';
+import _getValue     from './utils/_getValue';
 
 // The standard view. Includes view events, automatic rendering
 // of Underscore templates, nested views, and more.
-Marionette.View = Marionette.AbstractView.extend({
+var View = AbstractView.extend({
 
-  regionClass: Marionette.Region,
+  regionClass: Region,
 
   options: {
     destroyImmediate: false
@@ -27,7 +30,7 @@ Marionette.View = Marionette.AbstractView.extend({
 
     this.regions = this.regions || {};
 
-    Marionette.AbstractView.prototype.constructor.apply(this, arguments);
+    AbstractView.prototype.constructor.apply(this, arguments);
   },
 
   // Serialize the view's model *or* collection, if
@@ -170,7 +173,7 @@ Marionette.View = Marionette.AbstractView.extend({
   // for customized region interactions and business specific
   // view logic for better control over single regions.
   getRegionManager: function() {
-    return new Marionette.RegionManager();
+    return new RegionManager();
   },
 
   // Handle destroying regions, and then destroy the view itself.
@@ -183,7 +186,7 @@ Marionette.View = Marionette.AbstractView.extend({
       this.$el.remove();
     }
     this.regionManager.destroy();
-    return Marionette.AbstractView.prototype.destroy.apply(this, arguments);
+    return AbstractView.prototype.destroy.apply(this, arguments);
   },
 
   // Internal method to initialize the regions that have been defined in a
@@ -243,3 +246,5 @@ Marionette.View = Marionette.AbstractView.extend({
       .value();
   }
 });
+
+export default View;

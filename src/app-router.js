@@ -17,13 +17,15 @@
 //
 // You can also add standard routes to an AppRouter.
 
+import Backbone                from 'backbone';
+import _                       from 'underscore';
 import MarionetteError         from './error';
 import mergeOptions            from './utils/mergeOptions';
 import proxyGetOption          from './utils/proxyGetOption';
 import { proxyBindEntityEvents, proxyUnbindEntityEvents } from './bind-entity-events';
 import { triggerMethod }       from './trigger-method';
 
-Marionette.AppRouter = Backbone.Router.extend({
+var AppRouter = Backbone.Router.extend({
 
   constructor: function(options) {
     this.options = options || {};
@@ -92,3 +94,5 @@ Marionette.AppRouter = Backbone.Router.extend({
 
   unbindEntityEvents: proxyUnbindEntityEvents
 });
+
+export default AppRouter;

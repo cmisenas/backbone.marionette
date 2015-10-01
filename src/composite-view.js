@@ -6,11 +6,12 @@
 import _getValue       from './utils/_getValue';
 import getOption       from './utils/getOption';
 import MarionetteError from './error';
+import CollectionView  from './collection-view';
 
 // Used for rendering a branch-leaf, hierarchical structure.
 // Extends directly from CollectionView and also renders an
 // a child view as `modelView`, for the top leaf
-Marionette.CompositeView = Marionette.CollectionView.extend({
+var CompositeView = CollectionView.extend({
 
   // Setting up the inheritance chain which allows changes to
   // Marionette.CollectionView.prototype.constructor which allows overriding
@@ -18,7 +19,7 @@ Marionette.CompositeView = Marionette.CollectionView.extend({
   // maintaining the sorted order of the collection.
   // This will fallback onto appending childView's to the end.
   constructor: function() {
-    Marionette.CollectionView.prototype.constructor.apply(this, arguments);
+    CollectionView.prototype.constructor.apply(this, arguments);
   },
 
   // Configured the initial events that the composite view
@@ -92,7 +93,7 @@ Marionette.CompositeView = Marionette.CollectionView.extend({
 
   renderChildren: function() {
     if (this._isRendered || this._isRendering) {
-      Marionette.CollectionView.prototype._renderChildren.call(this);
+      CollectionView.prototype._renderChildren.call(this);
     }
   },
 
@@ -177,3 +178,5 @@ Marionette.CompositeView = Marionette.CollectionView.extend({
     }
   }
 });
+
+export default CompositeView;

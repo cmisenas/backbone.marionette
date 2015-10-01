@@ -1,6 +1,8 @@
 // Object
 // ------
 
+import _                        from 'underscore';
+import Backbone                 from 'backbone';
 import extend                   from './utils/extend';
 import proxyGetOption           from './utils/proxyGetOption';
 import mergeOptions             from './utils/mergeOptions';
@@ -10,20 +12,20 @@ import { proxyBindEntityEvents, proxyUnbindEntityEvents }
 
 // A Base Class that other Classes should descend from.
 // Object borrows many conventions and utilities from Backbone.
-Marionette.Object = function(options) {
+var MNObject = function(options) {
   this.options = _.extend({}, _.result(this, 'options'), options);
-  Marionette.proxyRadioHandlers.apply(this);
+  //Marionette.proxyRadioHandlers.apply(this);
   this.cid = _.uniqueId(this.cidPrefix);
   this.initialize.apply(this, arguments);
 };
 
-Marionette.Object.extend = extend;
+MNObject.extend = extend;
 
 // Object Methods
 // --------------
 
 // Ensure it can trigger events with Backbone.Events
-_.extend(Marionette.Object.prototype, Backbone.Events, {
+_.extend(MNObject.prototype, Backbone.Events, {
   cidPrefix: 'mno',
 
   // for parity with Marionette.AbstractView lifecyle
@@ -45,7 +47,7 @@ _.extend(Marionette.Object.prototype, Backbone.Events, {
     // prevent infinite loops within "destroy" event handlers
     this._isDestroyed = true;
     this.triggerMethod('destroy');
-    Marionette.unproxyRadioHandlers.apply(this);
+    //unproxyRadioHandlers.apply(this);
     this.stopListening();
 
     return this;
@@ -68,3 +70,5 @@ _.extend(Marionette.Object.prototype, Backbone.Events, {
   unbindEntityEvents: proxyUnbindEntityEvents
 
 });
+
+export default MNObject;

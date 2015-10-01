@@ -2,6 +2,9 @@
 // collection related features.
 // Borrowing this code from Backbone.Collection:
 // http://backbonejs.org/docs/backbone.html#section-121
+
+import _ from 'underscore';
+
 var actAsCollection = function(object, listProperty) {
   var methods = ['forEach', 'each', 'map', 'find', 'detect', 'filter',
     'select', 'reject', 'every', 'all', 'some', 'any', 'include',

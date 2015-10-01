@@ -1,4 +1,3 @@
-
 var FEATURES = {
   'class':  false
 };
