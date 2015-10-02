@@ -6,7 +6,9 @@
 // you won't ever need to extend from this class. Use the other Views
 // to build new classes.
 //
-
+import Backbone                 from 'backbone';
+import _                        from 'underscore';
+import Behaviors                from './behaviors';
 import _getValue                from './utils/_getValue';
 import getOption                from './utils/getOption';
 import normalizeMethods         from './utils/normalizeMethods';
@@ -16,10 +18,11 @@ import mergeOptions             from './utils/mergeOptions';
 import proxyGetOption           from './utils/proxyGetOption';
 import MonitorDOMRefresh        from './dom-refresh';
 import MarionetteError          from './error';
+import Renderer                 from './renderer';
 import { proxyBindEntityEvents, proxyUnbindEntityEvents } from './bind-entity-events';
 import { _triggerMethod }       from './trigger-method';
 
-Marionette.AbstractView = Backbone.View.extend({
+var AbstractView = Backbone.View.extend({
 
   supportsRenderLifecycle: true,
   supportsDestroyLifecycle: true,
@@ -45,7 +48,7 @@ Marionette.AbstractView = Backbone.View.extend({
     this.options = _.extend({}, _.result(this, 'options'), options);
 
     var behaviors = _getValue(this.getOption('behaviors'), this);
-    this._behaviors = Marionette.Behaviors(this, behaviors);
+    this._behaviors = Behaviors(this, behaviors);
 
     Backbone.View.call(this, this.options);
 
@@ -76,7 +79,7 @@ Marionette.AbstractView = Backbone.View.extend({
     var data = this.mixinTemplateContext(this.serializeData());
 
     // Render and add to el
-    var html = Marionette.Renderer.render(template, data, this);
+    var html = Renderer.render(template, data, this);
     this.attachElContent(html);
   },
 
@@ -97,7 +100,7 @@ Marionette.AbstractView = Backbone.View.extend({
   mixinTemplateContext: function(target) {
     target = target || {};
     var templateContext = this.getOption('templateContext');
-    templateContext = Marionette._getValue(templateContext, this);
+    templateContext = _getValue(templateContext, this);
     return _.extend(target, templateContext);
   },
 
@@ -404,7 +407,7 @@ Marionette.AbstractView = Backbone.View.extend({
   _parentItemView: function() {
     var ancestors = this._getAncestors();
     return _.find(ancestors, function(parent) {
-      return parent instanceof Marionette.View;
+      return parent instanceof AbstractView;
     });
   },
 
@@ -424,3 +427,5 @@ Marionette.AbstractView = Backbone.View.extend({
   // Proxy `unbindEntityEvents` to enable unbinding view's events from another entity.
   unbindEntityEvents: proxyUnbindEntityEvents
 });
+
+export default AbstractView;

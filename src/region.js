@@ -3,15 +3,19 @@
 // Region
 // ------
 
+import _                 from 'underscore';
+import Backbone          from 'backbone';
 import isNodeAttached    from './utils/isNodeAttached';
+import MNObject          from './object';
 import _getValue         from './utils/_getValue';
 import MarionetteError   from './error';
+import MonitorDOMRefresh from './dom-refresh';
 import { triggerMethodOn, triggerMethodMany } from './trigger-method';
 
 // Manage the visual regions of your composite application. See
 // http://lostechies.com/derickbailey/2011/12/12/composite-js-apps-regions-and-region-managers/
 
-Marionette.Region = Marionette.Object.extend({
+var Region = MNObject.extend({
   cidPrefix: 'mnr',
 
   constructor: function(options) {
@@ -32,7 +36,7 @@ Marionette.Region = Marionette.Object.extend({
     }
 
     this.$el = this.getEl(this.el);
-    Marionette.Object.call(this, options);
+    MNObject.call(this, options);
   },
 
   // Displays a backbone view instance inside of the region.
@@ -50,7 +54,7 @@ Marionette.Region = Marionette.Object.extend({
     }
 
     this._ensureViewIsIntact(view);
-    Marionette.MonitorDOMRefresh(view);
+    MonitorDOMRefresh(view);
 
     var showOptions     = options || {};
     var isDifferentView = view !== this.currentView;
@@ -159,11 +163,11 @@ Marionette.Region = Marionette.Object.extend({
 
   _renderView: function(view, options) {
     if (!view.supportsRenderLifecycle) {
-      Marionette.triggerMethodOn(view, 'before:render', view);
+      triggerMethodOn(view, 'before:render', view);
     }
     this.renderView(view, options);
     if (!view.supportsRenderLifecycle) {
-      Marionette.triggerMethodOn(view, 'render', view);
+      triggerMethodOn(view, 'render', view);
     }
   },
 
@@ -309,7 +313,7 @@ Marionette.Region = Marionette.Object.extend({
     if (view._isDestroyed) { return; }
 
     if (!view.supportsDestroyLifecycle) {
-      Marionette.triggerMethodOn(view, 'before:destroy', view);
+      triggerMethodOn(view, 'before:destroy', view);
     }
     if (view.destroy) {
       view.destroy();
@@ -321,7 +325,7 @@ Marionette.Region = Marionette.Object.extend({
       view._isDestroyed = true;
     }
     if (!view.supportsDestroyLifecycle) {
-      Marionette.triggerMethodOn(view, 'destroy', view);
+      triggerMethodOn(view, 'destroy', view);
     }
   },
 
@@ -424,3 +428,5 @@ Marionette.Region = Marionette.Object.extend({
     return new RegionClass();
   }
 });
+
+export default Region;

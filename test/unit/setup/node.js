@@ -2,9 +2,7 @@ var chai = require('chai');
 var sinon = require('sinon');
 var sinonChai = require('sinon-chai');
 var chaiJq = require('chai-jq');
-var requireHelper = require('./require-helper');
-import {setEnabled} from '../../../src/features';
-
+import Marionette from '../../../src/backbone-marionette';
 
 chai.use(sinonChai);
 chai.use(chaiJq);
@@ -34,33 +32,10 @@ global.$ = global.jQuery = require('jquery');
 global._ = require('underscore');
 global.Backbone = require('backbone');
 global.Backbone.$ = global.$;
-global.Marionette = Backbone.Marionette = {};
-
-var features = requireHelper('features');
-features.setEnabled('class', true);
+global.Marionette = Backbone.Marionette = Marionette;
 
 global.Metal = require('backbone-metal');
 
 require('backbone.babysitter');
 require('backbone.radio');
 global.slice = Array.prototype.slice;
-// requireHelper('bind-entity-events');
-requireHelper('radio-helpers');
-// requireHelper('trigger-method');
-// require utils
-// requireHelper('dom-refresh');
-requireHelper('metal');
-requireHelper('object');
-requireHelper('app-router');
-requireHelper('application');
-requireHelper('renderer');
-requireHelper('template-cache');
-requireHelper('abstract-view');
-requireHelper('view');
-requireHelper('collection-view');
-requireHelper('composite-view');
-requireHelper('behavior');
-requireHelper('behaviors');
-requireHelper('region');
-requireHelper('region-manager');
-//requireHelper('error');

@@ -1,3 +1,5 @@
+import _ from 'underscore';
+
 // Similar to `_.result`, this is a simple helper
 // If a function is provided we call it with context
 // otherwise just return the value. If the value is

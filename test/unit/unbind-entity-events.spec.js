@@ -1,5 +1,3 @@
-import Marionette from '../../src/backbone-marionette';
-
 describe('Marionette.unbindEntityEvents', function() {
   'use strict';
 
