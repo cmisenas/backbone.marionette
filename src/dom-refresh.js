@@ -3,7 +3,7 @@
 
 import _              from 'underscore';
 import isNodeAttached from './utils/isNodeAttached';
-import triggerMethodOn from './trigger-method';
+import {triggerMethodOn} from './trigger-method';
 
 // Monitor a view's state, and after it has been rendered and shown
 // in the DOM, trigger a "dom:refresh" event every time it is

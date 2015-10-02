@@ -1,19 +1,20 @@
 var sinon = require('sinon');
 var $ = require('jquery');
-
-var $body = $(document.body);
+var $fixtures;
 
 var setFixtures = function() {
   _.each(arguments, function(content) {
-    $body.append(content);
+    $fixtures.append(content);
   });
 };
 
 var clearFixtures = function() {
-  $body.empty();
+  $fixtures.empty();
 };
 
 before(function() {
+  $fixtures = $('<div id="fixtures">');
+  $('body').append($fixtures)
   this.checkProperties = function(block, blacklist) {
     blacklist = blacklist ? blacklist.push('cid') : 'cid';
     var props = _.partial(_.omit, _, blacklist);
