@@ -132,7 +132,7 @@ describe('Marionette.bindEntityEvents', function() {
     });
 
     it('should error', function() {
-      expect(this.run).to.throw('Error: Bindings must be an object or function. See: http://marionettejs.com/docs/v<%= version %>/marionette.functions.html#marionettebindentityevents');
+      expect(this.run).to.throw('Error: Bindings must be an object or function.');
     });
   });
 

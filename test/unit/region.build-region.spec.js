@@ -300,7 +300,7 @@ describe('Region', function() {
       });
 
       it('throws an error', function() {
-        expect(this.buildRegion).to.throw('Error: Improper region configuration type. See: http://marionettejs.com/docs/v<%= version %>/marionette.region.html#region-configuration-types');
+        expect(this.buildRegion).to.throw('Error: Improper region configuration type.');
       });
     });
   });

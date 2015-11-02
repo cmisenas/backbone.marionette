@@ -49,7 +49,7 @@ import RegionManager from './region-manager';
 import Application   from './application';
 import AppRouter     from './app-router';
 
-import metalSetup    from './metal';
+import { enableMarionette } from './metal';
 
 import { FEATURES, isEnabled, setEnabled } from './features';
 
@@ -102,6 +102,10 @@ Object.assign(Marionette, {
 
 Marionette.Object = MNObject;
 
-metalSetup(Marionette);
+Marionette.VERSION = '2.8.5';
+
+if (isEnabled('class')) {
+  enableMarionette(Marionette);
+}
 
 export default Marionette;

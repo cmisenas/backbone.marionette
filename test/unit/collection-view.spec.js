@@ -1,10 +1,6 @@
 describe('collection view', function() {
   'use strict';
 
-  before(function() {
-    sinon.spy(Backbone, 'View');
-  });
-
   beforeEach(function() {
     // Shared View Definitions
     // -----------------------

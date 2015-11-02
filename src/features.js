@@ -1,5 +1,5 @@
 var FEATURES = {
-  'class':  false
+  'class': false
 };
 
 function isEnabled(name) {
